@@ -32,7 +32,7 @@ function Uninstall
         if (Test-Path "FrostyModManager\Mods\FIFA19")
         {
             mkdir "#backup_Mods" | Out-Null
-            Move-Item "FrostyModManager\Mods\FIFA19" -Destination "#backup_Mods" -Recurse -Force
+            Move-Item "FrostyModManager\Mods\FIFA19" -Destination "#backup_Mods" -Force
         }
     }
     else { mkdir "FrostyModManager" | Out-Null }
