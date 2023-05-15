@@ -31,7 +31,7 @@ function Uninstall
         Get-ChildItem "FrostyModManager" -Exclude "Mods","#backup_Mods" | Remove-Item -Recurse
         if (Test-Path "FrostyModManager\Mods\FIFA19")
         {
-            mkdir "#backup_Mods" | Out-Null
+            if (!(Test-Path "#backup_Mods")) { mkdir "#backup_Mods" | Out-Null }
             Move-Item "FrostyModManager\Mods\FIFA19" -Destination "#backup_Mods" -Force
         }
     }
