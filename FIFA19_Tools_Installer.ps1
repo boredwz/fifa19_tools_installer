@@ -1,6 +1,17 @@
-# [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
-# . $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/master/FIFA19_Tools_Installer.ps1'))) -Uninstall
-# Set-ExecutionPolicy Bypass Process;. ".\FIFA19_Tools_Installer.ps1" -Uninstall
+#  FIFA19 Tools Installer (PowerShell)
+#  
+#  [Author]
+#    wvzxn | https://github.com/wvzxn/
+#  
+#  [Credits]
+#    Get-FileFromWeb.ps1 | ChrisStro | https://gist.github.com/ChrisStro/37444dd012f79592080bd46223e27adc
+#    ExtractArchive.ps1  | wvzxn     | https://gist.github.com/wvzxn/8f326deb99c3267ecf741a21fa73becb
+#    Frosty Mod Manager  | CadeEvs   | https://github.com/CadeEvs/FrostyToolsuite
+#    Extreme Injector    | master131 | https://github.com/master131/ExtremeInjector
+#  
+#  [Description]
+#    The script installs Frosty Mod Manager, Extreme Injector,
+#    bypasses Frosty's CPY block and creates shortcuts on Desktop and Start Menu.
 
 param([switch]$Uninstall)
 
@@ -11,7 +22,7 @@ function Uninstall
         "ei.rar",
         "$env:USERPROFILE\Desktop\FIFA 19 Launcher.lnk" ,
         "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\FIFA 19 Launcher.lnk"
-    ) | ForEach-Object { if (Test-Path $_) { Remove-Item $_ } }
+    ) | ?{ Test-Path $_ } | Remove-Item
     
     "FrostyModManager\Mods" | ?{ Test-Path $_ } | Copy-Item -Destination "#backup_Mods" -Recurse
     "$env:LOCALAPPDATA\Frosty" | ?{ Test-Path $_ } | Remove-Item -Recurse
@@ -23,7 +34,7 @@ function Uninstall
 
 #   Import
 $urlWC = "https://gist.githubusercontent.com/ChrisStro/37444dd012f79592080bd46223e27adc/raw/5ba566bd030b89358ba5295c04b8ef1062ddd0ce/Get-FileFromWeb.ps1"
-$urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/0646c5e45e6bacd28c7ab3cb0d7dd0178ce28b02/ExtractArchive.ps1"
+$urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/ebb82b5257d49f4e35869ff513aa6412a375ed81/ExtractArchive.ps1"
 $urlFrosty = "https://github.com/CadeEvs/FrostyToolsuite/releases/latest/download/FrostyModManager.zip"
 $urlInjector = "https://github.com/master131/ExtremeInjector/releases/download/v3.7.3/Extreme.Injector.v3.7.3.-.by.master131.rar"
 Invoke-WebRequest -useb "$urlWC" | Invoke-Expression          # Get-FileFromWeb $Url  $Path
@@ -77,4 +88,5 @@ Write-Host "== Then close Frosty Mod Manager and return to this window."
 Start-Process "FrostyModManager\FrostyModManager.exe" -WorkingDirectory "FrostyModManager" -Verb runAs -Wait
 foreach ($i in @("data\win32","patch\win32")) { Move-Item "$i\comm\$filter" $i }
 Write-Host "== Done!"
-Pause
+
+return
