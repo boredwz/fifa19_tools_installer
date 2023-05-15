@@ -4,14 +4,6 @@
 
 param([switch]$Uninstall)
 
-#   Import
-$urlWC = "https://gist.githubusercontent.com/ChrisStro/37444dd012f79592080bd46223e27adc/raw/5ba566bd030b89358ba5295c04b8ef1062ddd0ce/Get-FileFromWeb.ps1"
-$urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/0646c5e45e6bacd28c7ab3cb0d7dd0178ce28b02/ExtractArchive.ps1"
-$urlFrosty = "https://github.com/CadeEvs/FrostyToolsuite/releases/latest/download/FrostyModManager.zip"
-$urlInjector = "https://github.com/master131/ExtremeInjector/releases/download/v3.7.3/Extreme.Injector.v3.7.3.-.by.master131.rar"
-Invoke-WebRequest -useb "$urlWC" | Invoke-Expression          # Get-FileFromWeb $Url  $Path
-Invoke-WebRequest -useb "$urlExtract" | Invoke-Expression     # ExtractArchive  $Path $Destination
-
 function Uninstall
 {
     @(
@@ -29,12 +21,15 @@ function Uninstall
     "#backup_Mods" | ?{ Test-Path $_ } | Move-Item -Destination "FrostyModManager\$_" -Force
 }
 
-if ((Get-Location).Path -notmatch "FIFA")
-{
-    Write-Warning "Run this script inside FIFA 19 folder"
-    Pause
-    Exit
-}
+#   Import
+$urlWC = "https://gist.githubusercontent.com/ChrisStro/37444dd012f79592080bd46223e27adc/raw/5ba566bd030b89358ba5295c04b8ef1062ddd0ce/Get-FileFromWeb.ps1"
+$urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/0646c5e45e6bacd28c7ab3cb0d7dd0178ce28b02/ExtractArchive.ps1"
+$urlFrosty = "https://github.com/CadeEvs/FrostyToolsuite/releases/latest/download/FrostyModManager.zip"
+$urlInjector = "https://github.com/master131/ExtremeInjector/releases/download/v3.7.3/Extreme.Injector.v3.7.3.-.by.master131.rar"
+Invoke-WebRequest -useb "$urlWC" | Invoke-Expression          # Get-FileFromWeb $Url  $Path
+Invoke-WebRequest -useb "$urlExtract" | Invoke-Expression     # ExtractArchive  $Path $Destination
+
+if ((Get-Location).Path -notmatch "FIFA") { Write-Warning "Run this script inside FIFA 19 folder"; return }
 
 #   Go to FIFA 19 Root Folder
 Set-Location ((Get-Location).Path -replace '^(.+?\\[^\\]*?fifa[^\\]*?)(?:\\.+)?$','$1')
