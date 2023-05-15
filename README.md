@@ -1,4 +1,4 @@
-# fifa19_tools_installer
+# FIFA19_Tools_Installer
 
 > ###### Tested on: Windows 10, 11 (x64, PowerShell v5)
 
