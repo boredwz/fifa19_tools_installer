@@ -1,7 +1,8 @@
 # [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
-# & {$((iwr -useb 'https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/main/setup.ps1').Content)} -uninstall|iex
+# . $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/master/FIFA19_Tools_Installer.ps1'))) -Uninstall
+# . ".\FIFA19_Tools_Installer.ps1" -Uninstall
 
-param([switch]$uninstall)
+param([switch]$Uninstall)
 
 function Uninstall {
     @(
@@ -37,13 +38,13 @@ if ((Get-Location).Path -notmatch "FIFA")
 #   Go to FIFA 19 Root Folder
 Set-Location ((Get-Location).Path -replace '^(.+?\\[^\\]*?fifa[^\\]*?)(?:\\.+)?$','$1')
 
-echo "uninstall: $uninstall"
+echo "Uninstall: $Uninstall"
 Pause
-exit
+Exit
 
 #   Remove Leftovers + Backup Mods
 Uninstall
-if ($uninstall) { Write-Host "Uninstalling completed."; Pause; Exit }
+if ($Uninstall) { Write-Host "Uninstalling completed."; Pause; Exit }
 
 #   Download Tools
 Get-FileFromWeb "$urlFrosty" "fmm.zip"
