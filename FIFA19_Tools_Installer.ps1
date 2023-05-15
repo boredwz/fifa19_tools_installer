@@ -40,7 +40,7 @@ Set-Location ((Get-Location).Path -replace '^(.+?\\[^\\]*?fifa[^\\]*?)(?:\\.+)?$
 
 echo "Uninstall: $Uninstall"
 Pause
-Exit
+Exit-PSHostProcess
 
 #   Remove Leftovers + Backup Mods
 Uninstall
