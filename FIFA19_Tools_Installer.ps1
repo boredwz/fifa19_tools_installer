@@ -45,10 +45,9 @@ $urlFrostyKey = "https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/
 $urlInjector = "https://github.com/master131/ExtremeInjector/releases/download/v3.7.3/Extreme.Injector.v3.7.3.-.by.master131.rar"
 Invoke-WebRequest -useb "$urlExtract" | Invoke-Expression
 
-if ((Get-Location).Path -notmatch "FIFA") { Write-Warning "Run this script inside FIFA 19 folder"; return }
-
-#   Go to FIFA 19 Root Folder
+#   Check for FIFA 19 Root Folder
 Set-Location ((Get-Location).Path -replace '^(.+?\\[^\\]*?fifa[^\\]*?)(?:\\.+)?$','$1')
+if (!(Test-Path "FIFA19.exe")) { Write-Warning "Run this script inside FIFA 19 folder"; return }
 
 #   Remove Leftovers + Backup Mods
 Uninstall
@@ -89,19 +88,21 @@ if (([Console]::ReadKey($true).Key) -eq "Y")
 }
 
 #   Bypass Frosty block to create fifa19.cache
+Clear-Host
+Write-Warning "Do not close this window."
+Write-Host "== Select FIFA 19 location in Frosty Mod Manager and wait (It may take more than 5 minutes)."
+Write-Host "== Then close Frosty Mod Manager and return to this window."
 $filter="commentary*.toc"
 foreach ($i in @("data\win32","patch\win32"))
 {
     if (!(Test-Path "$i\comm")) { mkdir "$i\comm" | Out-Null }
     Move-Item "$i\$filter" "$i\comm"
 }
-Write-Warning "Do not close this window."
-Write-Host "== Select FIFA 19 location in Frosty Mod Manager and wait (It may take more than 5 minutes)."
-Write-Host "== Then close Frosty Mod Manager and return to this window."
 Start-Process "FrostyModManager\FrostyModManager.exe" -WorkingDirectory "FrostyModManager" -Verb runAs -Wait
 foreach ($i in @("data\win32","patch\win32")) { Move-Item "$i\comm\$filter" $i }
 
 #   FIFA19 key
+Clear-Host
 Write-Host "== You need to enter FIFA 19 KEY to unblock Frosty"
 Write-Host "== Press [Y] to copy key (Frosty will open)"
 if (([Console]::ReadKey($true).Key) -eq "Y")
