@@ -54,9 +54,15 @@ Uninstall
 if ($Uninstall) { Write-Host "Uninstalling completed."; return }
 
 #   Download Tools
-Write-Host "== Downloading Frosty Mod Manager... [", ("{0:N2}" -f ((Invoke-WebRequest $urlFrosty -Method Head).Headers.'Content-Length' / 1MB)), "MB ]"
+Write-Host @(
+    "== Downloading Frosty Mod Manager...",
+    "[$("{0:N2}" -f ((Invoke-WebRequest $urlFrosty -Method Head).Headers.'Content-Length' / 1MB))MB]"
+)
 (New-Object System.Net.WebClient).DownloadFile($urlFrosty, (Get-Location).Path + "\fmm.zip")
-Write-Host "== Downloading Extreme Injector... [", ("{0:N2}" -f ((Invoke-WebRequest $urlInjector -Method Head).Headers.'Content-Length' / 1MB)), "MB ]"
+Write-Host @(
+    "== Downloading Extreme Injector...",
+    "[$("{0:N2}" -f ((Invoke-WebRequest $urlInjector -Method Head).Headers.'Content-Length' / 1MB)))MB]"
+)
 (New-Object System.Net.WebClient).DownloadFile($urlInjector, (Get-Location).Path + "\ei.rar")
 ExtractArchive @("fmm.zip", "ei.rar") @("", "FrostyModManager")
 Remove-Item @("fmm.zip", "ei.rar")
