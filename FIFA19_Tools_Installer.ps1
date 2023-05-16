@@ -96,30 +96,24 @@ if (([Console]::ReadKey($true).Key) -eq "Y")
     Copy-Item "$env:USERPROFILE\Desktop\FIFA 19 Launcher.lnk" "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
 }
 
-#   Bypass Frosty block to create fifa19.cache
-Clear-Host
-Write-Warning "Do not close this window."
-Write-Host "== Select FIFA 19 location in Frosty Mod Manager and wait (It may take more than 5 minutes)." -for Green
-Write-Host "== Then close Frosty Mod Manager and return to this window." -for Green
+#   FIFA19 key + Bypass Frosty block to create fifa19.cache
 $filter="commentary*.toc"
 foreach ($i in @("data\win32","patch\win32"))
 {
     if (!(Test-Path "$i\comm")) { mkdir "$i\comm" | Out-Null }
     Move-Item "$i\$filter" "$i\comm"
 }
+Clear-Host
+Write-Warning "Do not close this window."
+Write-Host "== 1. Press [Y] to copy FIFA 19 KEY" -for Green
+Write-Host "==      Or you can find the key at https://www.fifermods.com/frosty-key" -for Green
+Write-Host "== 2. In Frosty window:" -for Green
+Write-Host "==    - Select FIFA19.exe location" -for Green
+Write-Host "==    - Paste the key and wait (It may take more than 5 minutes)." -for Green
+Write-Host "== 3. Then close Frosty Mod Manager and return to this window." -for Green
+if (([Console]::ReadKey($true).Key) -eq "Y") { (Invoke-WebRequest -useb $urlFrostyKey).Content | Set-Clipboard }
 Start-Process "FrostyModManager\FrostyModManager.exe" -WorkingDirectory "FrostyModManager" -Verb runAs -Wait
 foreach ($i in @("data\win32","patch\win32")) { Move-Item "$i\comm\$filter" $i }
-
-#   FIFA19 key
-Clear-Host
-Write-Host "== You need to enter FIFA 19 KEY to unblock Frosty" -for Green
-Write-Host "== Press [Y] to copy key (Frosty will open)" -for Green
-if (([Console]::ReadKey($true).Key) -eq "Y")
-{
-    (Invoke-WebRequest -useb $urlFrostyKey).Content | Set-Clipboard
-    Start-Process "FrostyModManager\FrostyModManager.exe" -WorkingDirectory "FrostyModManager" -Verb runAs -Wait
-}
-else { Write-Host "== OK, but in case, you can find the key at https://www.fifermods.com/frosty-key" -for Green }
 Write-Host "== Done!" -for Green
 
 return
