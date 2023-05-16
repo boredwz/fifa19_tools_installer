@@ -33,6 +33,7 @@ function Uninstall
         {
             if (!(Test-Path "#backup_Mods")) { mkdir "#backup_Mods" | Out-Null }
             Move-Item "FrostyModManager\Mods\FIFA19" -Destination "#backup_Mods" -Force
+            Write-Host "== #backup_Mods folder created" -for Green
         }
     }
     else { mkdir "FrostyModManager" | Out-Null }
@@ -51,19 +52,21 @@ if (!(Test-Path "FIFA19.exe")) { Write-Warning "Run this script inside FIFA 19 f
 
 #   Remove Leftovers + Backup Mods
 Uninstall
-if ($Uninstall) { Write-Host "Uninstalling completed."; return }
+if ($Uninstall) { Write-Host "== Uninstalling completed." -for Green; return }
 
 #   Download Tools
 Write-Host @(
     "== Downloading Frosty Mod Manager...",
     "[$("{0:N2}" -f ((Invoke-WebRequest $urlFrosty -Method Head).Headers.'Content-Length' / 1MB))MB]"
-)
+) -for Green
 (New-Object System.Net.WebClient).DownloadFile($urlFrosty, (Get-Location).Path + "\fmm.zip")
+
 Write-Host @(
     "== Downloading Extreme Injector...",
-    "[$("{0:N2}" -f ((Invoke-WebRequest $urlInjector -Method Head).Headers.'Content-Length' / 1MB)))MB]"
-)
+    "[$("{0:N2}" -f ((Invoke-WebRequest $urlInjector -Method Head).Headers.'Content-Length' / 1MB))MB]"
+) -for Green
 (New-Object System.Net.WebClient).DownloadFile($urlInjector, (Get-Location).Path + "\ei.rar")
+
 ExtractArchive @("fmm.zip", "ei.rar") @("", "FrostyModManager")
 Remove-Item @("fmm.zip", "ei.rar")
 
@@ -83,7 +86,7 @@ Remove-Item @("fmm.zip", "ei.rar")
 ) | Set-Content "FrostyModManager\#FIFA19_Launcher.vbs"
 
 #   Create FIFA19_Launcher Shortcut
-Write-Host "== Press [Y] to add FIFA 19 Launcher shortcuts to Desktop and Start Menu"
+Write-Host "== Press [Y] to add FIFA 19 Launcher shortcuts to Desktop and Start Menu" -for Green
 if (([Console]::ReadKey($true).Key) -eq "Y")
 {
     $Shortcut = (New-Object -comObject WScript.Shell).CreateShortcut("$env:USERPROFILE\Desktop\FIFA 19 Launcher.lnk")
@@ -96,8 +99,8 @@ if (([Console]::ReadKey($true).Key) -eq "Y")
 #   Bypass Frosty block to create fifa19.cache
 Clear-Host
 Write-Warning "Do not close this window."
-Write-Host "== Select FIFA 19 location in Frosty Mod Manager and wait (It may take more than 5 minutes)."
-Write-Host "== Then close Frosty Mod Manager and return to this window."
+Write-Host "== Select FIFA 19 location in Frosty Mod Manager and wait (It may take more than 5 minutes)." -for Green
+Write-Host "== Then close Frosty Mod Manager and return to this window." -for Green
 $filter="commentary*.toc"
 foreach ($i in @("data\win32","patch\win32"))
 {
@@ -109,14 +112,14 @@ foreach ($i in @("data\win32","patch\win32")) { Move-Item "$i\comm\$filter" $i }
 
 #   FIFA19 key
 Clear-Host
-Write-Host "== You need to enter FIFA 19 KEY to unblock Frosty"
-Write-Host "== Press [Y] to copy key (Frosty will open)"
+Write-Host "== You need to enter FIFA 19 KEY to unblock Frosty" -for Green
+Write-Host "== Press [Y] to copy key (Frosty will open)" -for Green
 if (([Console]::ReadKey($true).Key) -eq "Y")
 {
     (Invoke-WebRequest -useb $urlFrostyKey).Content | Set-Clipboard
     Start-Process "FrostyModManager\FrostyModManager.exe" -WorkingDirectory "FrostyModManager" -Verb runAs -Wait
-    Write-Host "== Done!"
 }
-else { Write-Host "== OK, but in case, you can find the key at https://www.fifermods.com/frosty-key" }
+else { Write-Host "== OK, but in case, you can find the key at https://www.fifermods.com/frosty-key" -for Green }
+Write-Host "== Done!" -for Green
 
 return
