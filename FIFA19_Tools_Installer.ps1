@@ -4,7 +4,7 @@
 #    wvzxn | https://github.com/wvzxn/
 #  
 #  [Credits]
-#    ExtractArchive.ps1  | wvzxn     | https://gist.github.com/wvzxn/8f326deb99c3267ecf741a21fa73becb
+#    ExtractArchive.ps1  | wvzxn     | https://gist.githubusercontent.com/wvzxn/aa1d1c486166a82a0899269c6161974f/raw/ExtractArchive.ps1
 #    Frosty Mod Manager  | CadeEvs   | https://github.com/CadeEvs/FrostyToolsuite
 #    FIFA19key           | fifermods | https://www.fifermods.com/frosty-key
 #    Extreme Injector    | master131 | https://github.com/master131/ExtremeInjector
@@ -22,10 +22,10 @@ function Uninstall
         "ei.rar",
         "$env:USERPROFILE\Desktop\FIFA 19 Launcher.lnk" ,
         "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\FIFA 19 Launcher.lnk"
-    ) | ?{ Test-Path $_ } | Remove-Item
+    ) | Where-Object { Test-Path $_ } | Remove-Item
 
-    "$env:LOCALAPPDATA\Frosty" | ?{ Test-Path $_ } | Remove-Item -Recurse
-    "ModData" | ?{ Test-Path $_ } | Remove-Item -Recurse
+    "$env:LOCALAPPDATA\Frosty" | Where-Object { Test-Path $_ } | Remove-Item -Recurse
+    "ModData" | Where-Object { Test-Path $_ } | Remove-Item -Recurse
     if (Test-Path "FrostyModManager")
     {
         Get-ChildItem "FrostyModManager" -Exclude "Mods","#backup_Mods" | Remove-Item -Recurse
@@ -40,7 +40,7 @@ function Uninstall
 }
 
 #   Import
-$urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/ebb82b5257d49f4e35869ff513aa6412a375ed81/ExtractArchive.ps1"
+$urlExtract = "https://gist.githubusercontent.com/wvzxn/aa1d1c486166a82a0899269c6161974f/raw/ExtractArchive.ps1"
 $urlFrosty = "https://github.com/CadeEvs/FrostyToolsuite/releases/latest/download/FrostyModManager.zip"
 $urlFrostyKey = "https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/master/frosty_key_fifa19"
 $urlInjector = "https://github.com/master131/ExtremeInjector/releases/download/v3.7.3/Extreme.Injector.v3.7.3.-.by.master131.rar"
