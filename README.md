@@ -9,7 +9,7 @@ Easily set up the Frosty Mod Manager and Extreme Injector to install FIFA 19 mod
 - Creates shortcuts on **Desktop** and **Start Menu**
 - Copies **Frosty FIFA19 key** to clipboard
 
-## Using
+## Usage
 
 1. #### Go to your FIFA 19 directory
 2. #### Open PowerShell window here
