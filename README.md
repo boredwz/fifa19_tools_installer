@@ -13,22 +13,22 @@ Easily set up the Frosty Mod Manager and Extreme Injector to install FIFA 19 mod
 
 1. #### Go to your FIFA 19 directory
 2. #### Open PowerShell window here
-    > ![image](https://github.com/wvzxn/fifa19_tools_installer/assets/87862400/d334e1bb-a931-4642-bb57-879940e4bcae)
+    > ![image](https://github.com/boredwz/fifa19_tools_installer/assets/87862400/d334e1bb-a931-4642-bb57-879940e4bcae)
 3. #### Copy and run this command:
     ```
-    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;. $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/master/FIFA19_Tools_Installer.ps1')))
+    . $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/boredwz/fifa19_tools_installer/master/FIFA19_Tools_Installer.ps1')))
     ```
 ## Uninstall
 1. #### Go to your FIFA 19 directory
 2. #### Open PowerShell window here
 3. #### Copy and run this command:
     ```
-    [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;. $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/master/FIFA19_Tools_Installer.ps1'))) -Uninstall
+    . $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/boredwz/fifa19_tools_installer/master/FIFA19_Tools_Installer.ps1'))) -Uninstall
     ```
 
 ## Credits
 
-#### [ExtractArchive.ps1](https://gist.github.com/wvzxn/8f326deb99c3267ecf741a21fa73becb) (Author: wvzxn)
+#### [ExtractArchive.ps1](https://gist.github.com/boredwz/aa1d1c486166a82a0899269c6161974f) (Author: boredwz)
 
 #### [Frosty Mod Manager](https://github.com/CadeEvs/FrostyToolsuite) (Author: CadeEvs)
 

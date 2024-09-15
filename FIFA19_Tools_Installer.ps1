@@ -1,10 +1,10 @@
 #  FIFA19 Tools Installer (PowerShell)
 #  
 #  [Author]
-#    wvzxn | https://github.com/wvzxn/
+#    boredwz | https://github.com/boredwz/
 #  
 #  [Credits]
-#    ExtractArchive.ps1  | wvzxn     | https://gist.githubusercontent.com/wvzxn/aa1d1c486166a82a0899269c6161974f/raw/ExtractArchive.ps1
+#    ExtractArchive.ps1  | boredwz   | https://gist.githubusercontent.com/boredwz/aa1d1c486166a82a0899269c6161974f/raw/ExtractArchive.ps1
 #    Frosty Mod Manager  | CadeEvs   | https://github.com/CadeEvs/FrostyToolsuite
 #    FIFA19key           | fifermods | https://www.fifermods.com/frosty-key
 #    Extreme Injector    | master131 | https://github.com/master131/ExtremeInjector
@@ -40,9 +40,9 @@ function Uninstall
 }
 
 #   Import
-$urlExtract = "https://gist.githubusercontent.com/wvzxn/aa1d1c486166a82a0899269c6161974f/raw/ExtractArchive.ps1"
+$urlExtract = "https://gist.githubusercontent.com/boredwz/aa1d1c486166a82a0899269c6161974f/raw/ExtractArchive.ps1"
 $urlFrosty = "https://github.com/CadeEvs/FrostyToolsuite/releases/latest/download/FrostyModManager.zip"
-$urlFrostyKey = "https://raw.githubusercontent.com/wvzxn/fifa19_tools_installer/master/frosty_key_fifa19"
+$urlFrostyKey = "https://raw.githubusercontent.com/boredwz/fifa19_tools_installer/master/frosty_key_fifa19"
 $urlInjector = "https://github.com/master131/ExtremeInjector/releases/download/v3.7.3/Extreme.Injector.v3.7.3.-.by.master131.rar"
 Invoke-WebRequest -useb "$urlExtract" | Invoke-Expression
 
